@@ -1,0 +1,16 @@
+<NotepadPlus>
+    <Project name="StrMaker">
+        <Folder name=".settings">
+            <File name=".settings\.jsdtscope" />
+            <File name=".settings\org.eclipse.wst.jsdt.ui.superType.container" />
+            <File name=".settings\org.eclipse.wst.jsdt.ui.superType.name" />
+        </Folder>
+        <File name=".project" />
+        <File name="1.png" />
+        <File name="index.html" />
+        <File name="inset.js" />
+        <File name="jquery.js" />
+        <File name="strmaker.js" />
+        <File name="styles.css" />
+    </Project>
+</NotepadPlus>

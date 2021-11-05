@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link href="styles.css" rel="stylesheet" type="text/css" />       
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+		
+		<script type="text/javascript" src="inset.js"></script>
+		
+		<title>String Maker</title>
+	</head>
+
+	<body>
+		<div id="container">
+			<div id="header">
+				<h1 class="display-4"> Welcome to String Maker by Alex</h1>
+			</div>
+			
+			<div id="pagebody">
+				<div id="sidebar">
+					<dl>
+						 <div class="row">
+							<div class="col-md-12">
+								<!-- Nav tabs -->
+								<ul id="tab-list" class="nav nav-tabs" role="tablist">
+									<li class="nav-item"><a class="nav-link active" href="#tab1" role="tab" data-toggle="tab"><span>Var_1 </span><span class="glyphicon glyphicon-pencil text-muted edit"></span></a></li>
+								</ul>
+								
+								<div>
+									<div class="pnlBox">
+										From &nbsp
+										<input class="txtNum" type="text" id="txtFnum" value="1"/>
+										&nbsp To &nbsp
+										<input class="txtNum" type="text" id="txtLnum" value="9"/>
+										&nbsp Step &nbsp
+										<input class="txtNum" type="text" id="txtStep" value="1"/>
+										&nbsp  &nbsp
+									</div>
+									<div>
+										<Button type="button" class="btn btn-primary pull-right" id="btnDo" onclick="btnDo_OnClick()">Make Parameter</Button>
+									</div>
+								</div>
+								
+								<!-- Tab panes -->
+								<div id="tab-content" class="tab-content">
+									<div class="tab-pane fade show active" id="tab1" role="tabpanel">
+										<div class="txtNote">One parameter per line</div>
+										<dt class="txtParam" id="txtParam1"  contenteditable="true"></dt>
+									</div>
+								</div>
+							</div>
+						</div>
+					</dl>
+				</div>
+				
+				<div id="mainbody">
+					<dl>
+						<dt height="100px"><p class="h5">Insert The Variable:</p>
+							<img id="v1" src="blue/1.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(1)"/> 
+							<img id="v2" src="blue/2.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(2)"/> 
+							<img id="v3" src="blue/3.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(3)"/> 
+							<img id="v4" src="blue/4.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(4)"/> 
+							<img id="v5" src="blue/5.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(5)"/> 
+							<img id="v6" src="blue/6.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(6)"/> 
+							<img id="v7" src="blue/7.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(7)"/> 
+							<img id="v8" src="blue/8.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(8)"/> 
+							<img id="v9" src="blue/9.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(9)"/> 
+							<img id="v0" src="blue/0.png" width="32px" height="32px" type="button" onclick="btnAddV_OnClick(0)"/> 
+							<br>
+						</dt>
+					</dl>
+					<dt class="editable" id="txtCodeArea"  contenteditable="true"></dt>
+					<dt height="50px">
+						<button id="btnRun" type="button" class="btn btn-primary pull-right" onclick="btnRun_OnClick()">Make And Get the Result below
+						</button>
+					</dt>
+					<dt class="editable" id="txtCodeResult"  contenteditable="true"></dt>
+					
+				</div>
+			</div>
+			
+			<div id="footer">
+					How a wonderful day. String maker by Alex. Email: Alexlam1822@gmail.com
+			</div>
+		</div>
+	</body>
+</html>
