@@ -1,12 +1,9 @@
 // Alex -  - JS
 //String Maker by Alex. Email: Alexlam1822@gmail.com
-// Jan 05, 2019
+//V2.0 Updated at Jan 05, 2019 
+//V2.1 Updated at Mar 22, 2022    
 
 'use strict';
-
-$(".txtParam").on("paste", function (e) {
-    pasteText(e)
-});
 
 // Insert img to txtCodeArea
 function pasteHtmlAtCaret(html) {
@@ -61,7 +58,7 @@ function btnAddV_OnClick(iID){
 }
 
 //btnRun - Output the result
-function  btnRun_OnClick(){
+function btnRun_OnClick(){
 	$('#footer').text('Processing.....');	
     let sText= $('#txtCodeArea').html();
 		$('#txtCodeResult').html(makeString(sText));
@@ -69,6 +66,14 @@ function  btnRun_OnClick(){
 	let myDate = new Date();	
 	$('#footer').text('Finished at '+myDate.toLocaleString()+'.      String Maker by Alex. Email: Alexlam1822@gmail.com');	
 }
+
+function btnCopy_OnClick(){
+  let copyText =$('#txtCodeResult');
+  copyText.select();
+  document.execCommand("copy");
+  alert("Result is copied!");
+}
+
 
 //btnRun - Output the result
 function  btnDo_OnClick(){
@@ -179,29 +184,7 @@ function makeString(sSrc){
 	return sRtn;
 }
 
-//paste the parameter by text 
-function pasteText(e){
-	e.preventDefault();
-	var text;
-    var clp = (e.originalEvent || e).clipboardData;
-    if (clp === undefined || clp === null) {
-        text = window.clipboardData.getData("text") || "";
-        if (text !== "") {
-            if (window.getSelection) {
-                var newNode = document.createElement("span");
-                newNode.innerHTML = text;
-                window.getSelection().getRangeAt(0).insertNode(newNode);
-            } else {
-                document.selection.createRange().pasteHTML(text);
-            }
-        }
-    } else {
-        text = clp.getData('text/plain') || "";
-        if (text !== "") {
-            document.execCommand('insertText', false, text);
-        }
-    }
-}
+
 
 
 
