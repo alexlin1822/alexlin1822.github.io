@@ -68,9 +68,10 @@ function btnRun_OnClick(){
 }
 
 function btnCopy_OnClick(){
-  let copyText =$('#txtCodeResult');
-  copyText.select();
-  document.execCommand("copy");
+  let copyText =$('#txtCodeResult').html();
+  let sHtml=copyText.replace(/<div>/g,'');
+  let tt=sHtml.replace(/<\/div>/g,'\n');
+  navigator.clipboard.writeText(tt);
   alert("Result is copied!");
 }
 
