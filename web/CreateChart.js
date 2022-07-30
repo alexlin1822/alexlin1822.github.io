@@ -383,7 +383,7 @@ async function reDraw(minYear, maxYear) {
 
       yScale = d3
         .scaleLinear()
-        .domain([maxY + 100, 0])
+        .domain([maxY + maxY/10, 0])
         .range([0, height - margin * 2]);
       xScale = d3
         .scaleTime()
