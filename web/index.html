@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="chartData.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>GDP historical data of the world's five largest economies</title>
+</head>
+<body>
+    <div>
+        <h1>GDP Historical Data of Five Largest Economies In The World</h1>
+    </div>
+    <div>
+        <h3>Please select the start year and the end year</h3>
+        &nbsp&nbsp&nbsp
+        Start from: <select class="drop-down" id="s1">
+        </select>
+        &nbsp&nbsp&nbsp
+        End to:
+        <select class="drop-down" id="s2">
+        </select>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <button id="btn" onclick="btnClick()">Show to chart</button>
+    </div>
+    
+    <div id="mydiv">
+    </div>
+</body>
+</html>
+
+<script src="CreateChart.js"></script>
+
+
