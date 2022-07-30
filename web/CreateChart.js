@@ -258,7 +258,7 @@ function drawAnnotations() {
     // 1997
     {
       note: {
-        label: "Gripped of E.&SE.Asia",
+        label: "Gripped of E.&SE.Asia, like Japan",
         title: "1997 Asian financial crisis",
         wrap: 150,
         padding: 2,
@@ -302,7 +302,7 @@ function drawAnnotations() {
     // 2020 COVID
     {
       note: {
-        label: "Global economic growth slows",
+        label: "Economic growth briefly slowed",
         title: "2020 CovID-19 Pandemic",
         wrap: 300,
         padding: 2,
@@ -423,6 +423,36 @@ function btnClick() {
       "The end year must greater than the start year. Please select again!"
     );
   }
+}
+
+function btnClick1(){
+  document.getElementById("s1").value=1968;
+  document.getElementById("s2").value=1990;
+  btnClick();
+}
+
+function btnClick2(){
+  document.getElementById("s1").value=1971;
+  document.getElementById("s2").value=2007;
+  btnClick();
+}
+
+function btnClick3(){
+  document.getElementById("s1").value=1998;
+  document.getElementById("s2").value=2019;
+  btnClick();
+}
+
+function btnClick4(){
+  document.getElementById("s1").value=2009;
+  document.getElementById("s2").value=2021;
+  btnClick();
+}
+
+function btnClick5(){
+  document.getElementById("s1").value=1960;
+  document.getElementById("s2").value=2021;
+  btnClick();
 }
 
 // Main run
