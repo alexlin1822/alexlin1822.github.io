@@ -56,16 +56,13 @@ function drawXYAxis() {
     .attr("fill", "#fbfbfb");
 
   // Create X Axis
-  let x = d3
-    .axisBottom(xScale)
-    .tickFormat(d3.format("y"));
+  let x = d3.axisBottom(xScale).tickFormat(d3.format("y"));
 
   svg
     .append("g")
     .attr("class", "x-axis")
     .attr("transform", function () {
       return `translate(${margin}, ${height - margin})`;
-
     })
     .call(x);
 
@@ -241,39 +238,39 @@ function drawAnnotations() {
       note: {
         label: "Uneven economic growth",
         title: "Stagflation in the 1970s",
-        wrap: 200,
+        wrap: 150,
         padding: 2,
       },
       color: ["#1b6ef5"],
       x: xScale(1970) + 45,
-      y: yScale(1020),
+      y: yScale(1500),
       dy: 0,
       dx: -10,
       subject: {
         width: 10,
-        height: 730 - yScale(1020),
+        height: 730 - yScale(1500),
       },
       type: d3.annotationCalloutRect,
     },
   ];
 
   const annotations2 = [
-    // 1996
+    // 1997
     {
       note: {
-        label: "Gripped of E. & SE.Asia",
+        label: "Gripped of E.&SE.Asia",
         title: "1997 Asian financial crisis",
-        wrap: 200,
+        wrap: 150,
         padding: 2,
       },
       color: ["#1fad0c"],
       x: xScale(1997) + 45,
-      y: yScale(8000),
+      y: yScale(9000),
       dy: 0,
-      dx: -40,
+      dx: -10,
       subject: {
         width: 10,
-        height: 730 - yScale(8000),
+        height: 730 - yScale(9000),
       },
       type: d3.annotationCalloutRect,
     },
@@ -285,23 +282,21 @@ function drawAnnotations() {
       note: {
         label: "Contributed to the global financial crisis",
         title: "2008 The U.S. subprime mortgage crisis",
-        wrap: 200,
+        wrap: 150,
         padding: 2,
       },
       color: ["#448ead"],
       x: xScale(2008) + 45,
-      y: yScale(15000),
+      y: yScale(16000),
       dy: 0,
-      dx: -40,
+      dx: -10,
       subject: {
         width: 10,
-        height: 730 - yScale(15000),
+        height: 730 - yScale(16000),
       },
       type: d3.annotationCalloutRect,
     },
   ];
-
-  
 
   const annotations4 = [
     // 2020 COVID
@@ -319,17 +314,22 @@ function drawAnnotations() {
       dx: -10,
       subject: {
         width: 10,
-        height: 730 - yScale(20894) ,
+        height: 730 - yScale(20894),
       },
       type: d3.annotationCalloutRect,
     },
   ];
 
+  annotations1[0].dx = annotations1[0].x > 190 ? -10 : 12;
+  annotations2[0].dx = annotations2[0].x > 190 ? -10 : 12;
+  annotations3[0].dx = annotations3[0].x > 190 ? -10 : 12;
+  annotations4[0].dx = annotations4[0].x > 300 ? -10 : 12;
+
   if ((minYear <= 1970) & (maxYear >= 1970)) {
     const makeAnnotations1 = d3.annotation().annotations(annotations1);
     svg.append("g").call(makeAnnotations1);
   }
-  if ((minYear <= 1996) & (maxYear >= 1996)) {
+  if ((minYear <= 1997) & (maxYear >= 1997)) {
     const makeAnnotations2 = d3.annotation().annotations(annotations2);
     svg.append("g").call(makeAnnotations2);
   }
@@ -351,6 +351,7 @@ async function reDraw(minYear, maxYear) {
     .select("#mydiv")
     .append("svg")
     .attr("id", "mysvg")
+    .style("font-size", 12)
     .attr("width", width)
     .attr("height", height);
 
@@ -383,7 +384,7 @@ async function reDraw(minYear, maxYear) {
 
       yScale = d3
         .scaleLinear()
-        .domain([maxY + maxY/10, 0])
+        .domain([maxY + maxY / 10, 0])
         .range([0, height - margin * 2]);
       xScale = d3
         .scaleTime()
