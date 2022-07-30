@@ -237,7 +237,7 @@ function drawAnnotations() {
     {
       note: {
         label: "Uneven economic growth",
-        title: "Stagflation in the 1970s",
+        title: "1970 Stagflation",
         wrap: 150,
         padding: 2,
       },
@@ -265,12 +265,12 @@ function drawAnnotations() {
       },
       color: ["#1fad0c"],
       x: xScale(1997) + 45,
-      y: yScale(9000),
+      y: yScale(10000),
       dy: 0,
       dx: -10,
       subject: {
         width: 10,
-        height: 730 - yScale(9000),
+        height: 730 - yScale(10000),
       },
       type: d3.annotationCalloutRect,
     },
@@ -281,7 +281,7 @@ function drawAnnotations() {
     {
       note: {
         label: "Contributed to the global financial crisis",
-        title: "2008 The U.S. subprime mortgage crisis",
+        title: "2008 U.S. subprime mortgage crisis",
         wrap: 150,
         padding: 2,
       },
@@ -303,7 +303,7 @@ function drawAnnotations() {
     {
       note: {
         label: "Global economic growth slows",
-        title: "CovID-19 Pandemic in 2020",
+        title: "2020 CovID-19 Pandemic",
         wrap: 300,
         padding: 2,
       },
@@ -382,9 +382,19 @@ async function reDraw(minYear, maxYear) {
         return d.y;
       });
 
+
+      let yHeight=0;
+      if (maxYear <=1973){
+        yHeight=maxY *1.7;}
+      else if ((maxYear >=1997 & maxYear <=1999)| (maxYear >=2008& maxYear <=2011)|maxYear ==2020){
+          yHeight=maxY *1.3;
+      }else{
+        yHeight=maxY *1.1;
+      }
+
       yScale = d3
         .scaleLinear()
-        .domain([maxY + maxY / 10, 0])
+        .domain([yHeight, 0])
         .range([0, height - margin * 2]);
       xScale = d3
         .scaleTime()
