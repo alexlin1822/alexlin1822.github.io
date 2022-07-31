@@ -166,7 +166,7 @@ function drawOneLine(data, id) {
       .attr("class", "circle")
       .enter()
       .append("circle")
-      .attr("r", 4)
+      .attr("r", 5)
       .attr("cx", function (d) {
         return xScale(d.theYear);
       })

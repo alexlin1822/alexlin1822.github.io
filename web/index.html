@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,20 +9,23 @@
     <script src="chartData.js"></script>
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <title>GDP historical data of the world's five largest economies</title>
+    <title>GDP Historical Data of Five Large Economies in The World</title>
 </head>
+
 <body>
     <div>
-        <h1>GDP Historical Data of Five Largest Economies In The World</h1>
+        <h1>GDP Historical Data of Five Large Economies in The World</h1>
+        <h3>(Included 1960 - 2021 GDP data. Data source: World bank open data.)</h3>
     </div>
+
     <div width="1500">
-        &nbsp&nbsp Review by event: &nbsp 
+        &nbspReview by event: &nbsp
         &nbsp <button id="btn1" onclick="btnClick1()">Event 1</button>
         &nbsp <button id="btn2" onclick="btnClick2()">Event 2</button>
         &nbsp <button id="btn3" onclick="btnClick3()">Event 3</button>
         &nbsp <button id="btn4" onclick="btnClick4()">Event 4</button>
         &nbsp <button id="btn5" onclick="btnClick5()">All Events</button>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
         or Select the year as you want:
         &nbsp&nbsp&nbsp
         Start from: <select class="drop-down" id="s1">
@@ -33,12 +37,11 @@
         &nbsp&nbsp&nbsp&nbsp&nbsp
         <button id="btn" onclick="btnClick()">Show to chart</button>
     </div>
-    
+
     <div id="mydiv">
     </div>
 </body>
+
 </html>
 
 <script src="CreateChart.js"></script>
-
-
