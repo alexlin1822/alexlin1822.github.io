@@ -1,11 +1,21 @@
-// Alex -  - JS
-//String Maker by Alex. Email: Alexlam1822@gmail.com
-//V2.0 Updated at Jan 05, 2019
-//V2.1 Updated at Mar 22, 2022
+/**
+	Author: Alex Lam
+	Application: String Maker
+	Email: Alexlam1822@gmail.com
+
+	V2.0 Updated at Jan 05, 2019
+	V2.1 Updated at Mar 22, 2022
+	V2.2 Updated at Aug 15, 2023
+ */
 
 "use strict";
 
-// Insert img to txtCodeArea
+/**
+ * @description Insert img to txtCodeArea
+ * @param {string} sHtml
+ * @returns {string}
+ *
+ */
 function pasteHtmlAtCaret(html) {
   var sel, range;
   if (window.getSelection) {
@@ -42,7 +52,10 @@ function pasteHtmlAtCaret(html) {
   }
 }
 
-//when the number [insert] button press, add tab and number
+/**
+ * @description when the number [insert] button press, add tab and number
+ * @param {*} iID new tab id
+ */
 function btnAddV_OnClick(iID) {
   //Add or show exist tab of variable
   if ($("#tab" + iID).length <= 0) {
@@ -67,7 +80,7 @@ function btnAddV_OnClick(iID) {
           iID +
           '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
           iID +
-          '"  contenteditable="true"></dt>'
+          '"  contenteditable="plaintext-only"></dt>'
       )
     );
   }
@@ -82,7 +95,10 @@ function btnAddV_OnClick(iID) {
   );
 }
 
-//btnRun - Output the result
+/**
+ * @description when the run button press, output the result
+ * @param {*} iID new tab id
+ */
 function btnRun_OnClick() {
   $("#footer").text("Processing.....");
   let sText = $("#txtCodeArea").html();
@@ -120,8 +136,10 @@ function btnDo_OnClick() {
   $("#txtParam" + sID).html(sRtn);
 }
 
-//Making string function
-// sSrc - the html source in txtCodeArea
+/**
+ * @description Making string function
+ * @param {*} sSrc - the html source in txtCodeArea
+ */
 function makeString(sSrc) {
   //Define maximum number of parameter
   let iMax = 9; //0..9
@@ -149,10 +167,6 @@ function makeString(sSrc) {
 
     let sHtml = $("#txtParam" + j).html();
 
-    // console.log("sHtml: ", sHtml);
-    // var lines = sHtml.split("\n");
-    // console.log("lines: ", lines);
-
     if (sHtml.slice(0, 5) == "<div>") {
       sHtml = sHtml.slice(5, sHtml.length - 6);
     }
@@ -163,12 +177,18 @@ function makeString(sSrc) {
       sHtml = sHtml.replace(/<\/div>/g, "");
       sHtml = sHtml.replace(/<br>/g, "");
 
-      if (sHtml.includes("<div>")) {
-        slParam[j] = sHtml.split("<div>");
-      } else {
+      if (sHtml.includes("\r")) {
+        sHtml = sHtml.replace(/<div>/g, "");
+        slParam[j] = sHtml.split("\r");
+        console.log("Split R ");
+      } else if (sHtml.includes("\n")) {
+        sHtml = sHtml.replace(/<div>/g, "");
         slParam[j] = sHtml.split("\n");
+        console.log("Split N ");
+      } else if (sHtml.includes("<div>")) {
+        slParam[j] = sHtml.split("<div>");
+        console.log("Split <div>");
       }
-      //
 
       //delete the blank
       for (let i = slParam[j].length - 1; i >= 0; i--) {
@@ -209,11 +229,10 @@ function makeString(sSrc) {
     return "There is no parameter exist!";
   }
 
+  //replace the parameter
   for (let k = 0; k < iParmLineCount; k++) {
-    //生成语句数量
     let sTemp = sSrc;
     for (let i = 0; i < iMax; i++) {
-      //参数数量
       let sKey;
       if (k >= slParam[i].length) {
         sKey = "";
