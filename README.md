@@ -71,20 +71,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 
-
-1. In your CI/CD pipeline, check out code and get latest commit SHA.
-2. Use the JFrog CLI to scan the commit for changed files:
-
-jfrog rt scan --build-name=<name> --build-number=<commit>
-
-3.  Set the deployment path in Artifactory to match the build name/number:
-jfrog rt dp <path> --build-name=<name> --build-number=<commit>
-
-4.  When deploying artifacts, use the --exclude-patterns flag to exclude unchanged files:
-  jfrog rt u <spec> --build-name=<name> --exclude-patterns="/unchanged/*"
-
-5.  When deploying artifacts, use the --exclude-patterns flag to exclude unchanged files:
-This leverages Artifactory's build info support to deploy only file changes for a specific commit.
-
-
-https://jfrog.com/help/r/jfrog-cli/publishing-build-info
