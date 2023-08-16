@@ -85,3 +85,6 @@ jfrog rt dp <path> --build-name=<name> --build-number=<commit>
 
 5.  When deploying artifacts, use the --exclude-patterns flag to exclude unchanged files:
 This leverages Artifactory's build info support to deploy only file changes for a specific commit.
+
+
+https://jfrog.com/help/r/jfrog-cli/publishing-build-info
