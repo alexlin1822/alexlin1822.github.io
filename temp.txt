@@ -1,0 +1,41 @@
+-- oracle check all tables size except the tables include LOB column in a specific schemas
+SELECT
+    owner,
+    table_name,
+    ROUND((num_rows * avg_row_len) / (1024 * 1024), 2) AS size_mb
+FROM
+    all_tables
+WHERE
+    owner IN ('SCHEMA1', 'SCHEMA2', 'SCHEMA3') -- List your specific schemas here
+    AND table_name NOT IN (
+        SELECT table_name
+        FROM all_tab_columns
+        WHERE data_type LIKE 'LOB'
+        AND owner IN ('SCHEMA1', 'SCHEMA2', 'SCHEMA3')
+    )
+ORDER BY
+    size_mb DESC;
+
+
+
+--oracle check all tables size which the table include LOB column in a specific schemas
+SELECT
+    owner,
+    table_name,
+    ROUND((num_rows * avg_row_len) / (1024 * 1024), 2) AS size_mb
+FROM
+    all_tables
+WHERE
+    owner IN ('SCHEMA1', 'SCHEMA2', 'SCHEMA3') -- List your specific schemas here
+    AND table_name IN (
+        SELECT table_name
+        FROM all_tab_columns
+        WHERE data_type LIKE 'LOB'
+        AND owner IN ('SCHEMA1', 'SCHEMA2', 'SCHEMA3')
+    )
+ORDER BY
+    size_mb DESC;
+
+
+
+
