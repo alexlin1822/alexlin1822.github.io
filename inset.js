@@ -10,8 +10,6 @@
 
 "use strict";
 
-const iMax = 26; //1..26
-
 /**
  * @description Insert img to txtCodeArea
  * @param {string} sHtml
@@ -146,6 +144,7 @@ function btnDo_OnClick() {
  */
 function makeString(sSrc) {
   //Define maximum number of parameter
+  let iMax = 26; //1..26
 
   //Define variable
   let sRtn = "";
@@ -159,7 +158,7 @@ function makeString(sSrc) {
   }
 
   // count parameter;
-  for (let j = 1; j <= iMax; j++) {
+  for (let j = 0; j <= iMax; j++) {
     slParam[j] = new Array();
 
     if ($("#txtParam" + j).length <= 0) {
@@ -202,6 +201,8 @@ function makeString(sSrc) {
         }
       }
 
+      console.log(slParam[j]);
+
       //count the max length of parameters
       if (slParam[j].length > iParmLineCount) {
         if (iParmLineCount > 0) {
@@ -235,8 +236,9 @@ function makeString(sSrc) {
   //replace the parameter
   for (let k = 0; k < iParmLineCount; k++) {
     let sTemp = sSrc;
-    for (let i = 0; i < iMax; i++) {
+    for (let i = 0; i <= iMax; i++) {
       let sKey;
+      console.log(slParam[i]);
       if (k >= slParam[i].length) {
         sKey = "";
       } else {
