@@ -10,6 +10,8 @@
 
 "use strict";
 
+const iMax = 26; //1..26
+
 /**
  * @description Insert img to txtCodeArea
  * @param {string} sHtml
@@ -123,7 +125,9 @@ function btnCopy_OnClick() {
 //btnRun - Output the result
 function btnDo_OnClick() {
   let sNav = $(".nav-tabs .active").text();
-  let sID = sNav.toString().substring(4, 5);
+  let s = sNav.split(" ");
+  let sID = s[0].toString().substring(4);
+  console.log("sID: ", sID);
   let sRtn = "";
   var iFirst = +$("#txtFnum").val();
   var iLast = +$("#txtLnum").val();
@@ -142,7 +146,6 @@ function btnDo_OnClick() {
  */
 function makeString(sSrc) {
   //Define maximum number of parameter
-  let iMax = 9; //0..9
 
   //Define variable
   let sRtn = "";
@@ -156,7 +159,7 @@ function makeString(sSrc) {
   }
 
   // count parameter;
-  for (let j = 0; j <= iMax; j++) {
+  for (let j = 1; j <= iMax; j++) {
     slParam[j] = new Array();
 
     if ($("#txtParam" + j).length <= 0) {
