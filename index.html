@@ -27,7 +27,7 @@
 	<body>
 		<div id="container">
 			<div id="header">
-				<h3 class="display-4"> Welcome to String Maker by Alex</h3>
+				<h3 class="display1"> Welcome to String Maker by Alex</h3>
 			</div>
 			
 			<div id="pagebody">
@@ -51,7 +51,8 @@
 										&nbsp  &nbsp
 									</div>
 									<div class="w-100">
-										<Button type="button" class="btn btn-primary pull-right w-100" id="btnDo" onclick="btnDo_OnClick()">MakeGenerate Parameters</Button>
+										<!-- <Button type="button" class="btn btn-primary pull-right w-100" id="btnDo" onclick="btnDo_OnClick()">MakeGenerate Parameters</Button> -->
+										<Button type="button" class="button" id="btnDo" onclick="btnDo_OnClick()">Generate Parameters</Button>
 									</div>
 								</div>
 								
@@ -103,11 +104,11 @@
 					<h5>Place your sentence and variable below:</h5>
 					<dt class="editable" id="txtCodeArea"  contenteditable="plaintext-only"></dt>
 					<dt height="50px">
-						<button id="btnRun" type="button" class="btn btn-primary pull-right w-100" width="100%" onclick="btnRun_OnClick()">Generate the result below</button>
+						<button id="btnRun" type="button" class="button" onclick="btnRun_OnClick()">Generate the result below</button>
 					</dt>
 					<dt class="editable" id="txtCodeResult"  contenteditable="readonly" ></dt>
 					<dt height="50px">
-						<button id="btnCopy" type="button" class="btn btn-primary pull-right w-100" onclick="btnCopy_OnClick()">Copy result</button>
+						<button id="btnCopy" type="button" class="button" onclick="btnCopy_OnClick()">Copy result</button>
 					</dt>
 				</div>
 			</div>
