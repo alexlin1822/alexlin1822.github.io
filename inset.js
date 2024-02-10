@@ -100,6 +100,78 @@ function btnAddV_OnClick(iID) {
   );
 }
 
+function btnCSV_OnClick(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const contents = e.target.result;
+    const csvData = parseCSV(contents);
+    console.log(csvData);
+
+    if (csvData === null) {
+      alert("Invalid CSV file");
+      return;
+    }
+
+    let lastNode = -1;
+
+    for (let i = 1; i <= iMax; i++) {
+      if ($("#txtParam" + i).length > 0) {
+        lastNode = i;
+
+        if ($("#txtParam" + i).html().length > 0) {
+          lastNode++;
+        }
+      }
+    }
+
+    console.log("lastNode: ", lastNode);
+    let cols = csvData[0].length;
+    if (lastNode + cols <= iMax) {
+      for (let i = 0; i < cols; i++) {
+        let sRtn = "";
+        for (let j = 0; j < csvData.length; j++) {
+          sRtn += "<div>" + csvData[j][i].trim() + "</div>";
+        }
+        if ($("#txtParam" + (lastNode + i)).length <= 0) {
+          $("#tab-list").append(
+            $(
+              '<li class="nav-item"><a class="nav-link" id="ValTab' +
+                (lastNode + i) +
+                '" href="#tab' +
+                (lastNode + i) +
+                '" role="tab" data-toggle="tab"><span>Var[' +
+                (lastNode + i) +
+                ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
+            )
+          );
+          $("#tab-content").append(
+            $(
+              '<div class="tab-pane fade" id="tab' +
+                (lastNode + i) +
+                '" role="tabpanel"' +
+                (lastNode + i) +
+                '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
+                (lastNode + i) +
+                '"  contenteditable="plaintext-only"></dt>'
+            )
+          );
+        }
+        $('#tab-list a[href="#tab' + (lastNode + i) + '"]').tab("show");
+        $("#txtParam" + (lastNode + i)).html(sRtn);
+      }
+    } else {
+      alert(
+        "The number of columns in the CSV file exceeds the maximum number of parameters allowed"
+      );
+      return;
+    }
+  };
+
+  reader.readAsText(file);
+}
+
 function get_ID(inputString) {
   const regex = /\[(.*?)\]/;
   const matches = regex.exec(inputString);
@@ -274,94 +346,8 @@ function makeString(sSrc) {
   return sRtn;
 }
 
-<<<<<<< HEAD
 function btnExample_OnClick() {
   console.log("btnExample_OnClick");
-}
-
-=======
->>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
-function btnCSV_OnClick(event) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-
-  reader.onload = function (e) {
-    const contents = e.target.result;
-    const csvData = parseCSV(contents);
-    console.log(csvData);
-
-    if (csvData === null) {
-      alert("Invalid CSV file");
-      return;
-    }
-
-    let lastNode = -1;
-
-    for (let i = 1; i <= iMax; i++) {
-      if ($("#txtParam" + i).length > 0) {
-        lastNode = i;
-<<<<<<< HEAD
-        if ($("#txtParam" + i).html().length > 0) {
-          lastNode++;
-        }
-      }
-    }
-
-    let cols = csvData[0].length;
-    if (lastNode + cols <= iMax) {
-      for (let i = 0; i < cols; i++) {
-        let sRtn = "";
-        for (let j = 0; j < csvData.length; j++) {
-          sRtn += "<div>" + csvData[j][i].trim() + "</div>";
-=======
-      }
-    }
-
-    console.log("lastNode: ", lastNode);
-    let cols = csvData[0].length;
-    if (lastNode + cols <= iMax) {
-      for (let i = 1; i <= cols; i++) {
-        let sRtn = "";
-        for (let j = 0; j < csvData.length; j++) {
-          sRtn += "<div>" + csvData[j][i - 1].trim() + "</div>";
->>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
-        }
-        if ($("#txtParam" + (lastNode + i)).length <= 0) {
-          $("#tab-list").append(
-            $(
-              '<li class="nav-item"><a class="nav-link" id="ValTab' +
-                (lastNode + i) +
-                '" href="#tab' +
-                (lastNode + i) +
-                '" role="tab" data-toggle="tab"><span>Var[' +
-                (lastNode + i) +
-                ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
-            )
-          );
-          $("#tab-content").append(
-            $(
-              '<div class="tab-pane fade" id="tab' +
-                (lastNode + i) +
-                '" role="tabpanel"' +
-                (lastNode + i) +
-                '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
-                (lastNode + i) +
-                '"  contenteditable="plaintext-only"></dt>'
-            )
-          );
-        }
-        $('#tab-list a[href="#tab' + (lastNode + i) + '"]').tab("show");
-        $("#txtParam" + (lastNode + i)).html(sRtn);
-      }
-    } else {
-      alert(
-        "The number of columns in the CSV file exceeds the maximum number of parameters allowed"
-      );
-      return;
-    }
-  };
-
-  reader.readAsText(file);
 }
 
 function parseCSV(csvText) {
@@ -371,16 +357,13 @@ function parseCSV(csvText) {
   const rows = csvText.trim().split("\n");
   const csvData = [];
   rows.forEach((row) => {
-<<<<<<< HEAD
     const columns = row
       .trim()
       .replace("\r", "")
       .replace("\t", "")
       .split(",")
       .map((col) => col.trim());
-=======
-    const columns = row.split(",");
->>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
+
     csvData.push(columns);
   });
   return csvData;

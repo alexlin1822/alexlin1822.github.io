@@ -6,7 +6,7 @@
 	V2.0 Updated at Jan 05, 2019
 	V2.1 Updated at Mar 22, 2022
 	V2.2 Updated at Aug 15, 2023
-    V2.3 Updated at Feb 2, 2024
+  V2.3 Updated at Feb 2, 2024
 
 -->
 
@@ -46,7 +46,9 @@
   <body>
     <div id="container">
       <div id="header">
-        <h3 class="display1">Welcome to String Maker by Alex</h3>
+        <h3 class="display1" onclick="btnExample_OnClick()">
+          Welcome to String Maker by Alex
+        </h3>
       </div>
 
       <div id="pagebody">
@@ -54,6 +56,18 @@
           <dl>
             <div class="row">
               <div class="col-md-12">
+                <div class="w-100">
+                  Select a CSV file (no TITLE) to import Parameters:
+                </div>
+                <div>
+                  <input
+                    type="file"
+                    class="file"
+                    id="btnCSV"
+                    accept=".csv"
+                    onchange="btnCSV_OnClick(event)"
+                  />
+                </div>
                 <!-- Nav tabs -->
                 <ul id="tab-list" class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
@@ -62,7 +76,7 @@
                       href="#tab1"
                       role="tab"
                       data-toggle="tab"
-                      ><span>Var_1 </span
+                      ><span>Var[1] </span
                       ><span
                         class="glyphicon glyphicon-pencil text-muted edit"
                       ></span
@@ -77,16 +91,15 @@
                     &nbsp To &nbsp
                     <input class="txtNum" type="text" id="txtLnum" value="9" />
                     &nbsp Step &nbsp
-                    <input class="txtNum" type="text" id="txtStep" value="1" />
+                    <input class="txtStep" type="text" id="txtStep" value="1" />
                     &nbsp &nbsp
                   </div>
                   <div class="w-100">
-                    <!-- <Button type="button" class="btn btn-primary pull-right w-100" id="btnDo" onclick="btnDo_OnClick()">MakeGenerate Parameters</Button> -->
                     <button
                       type="button"
                       class="button"
-                      id="btnDo"
-                      onclick="btnDo_OnClick()"
+                      id="btnGenerateParameters"
+                      onclick="btnGenerateParameters_OnClick()"
                     >
                       Generate Parameters
                     </button>
@@ -100,7 +113,7 @@
                     id="tab1"
                     role="tabpanel"
                   >
-                    <div class="txtNote">One parameter per line</div>
+                    <div class="txtNote">Hint: One parameter per line</div>
                     <dt
                       class="txtParam"
                       id="txtParam1"
