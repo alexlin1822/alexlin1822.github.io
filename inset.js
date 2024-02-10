@@ -6,9 +6,13 @@
 	V2.0 Updated at Jan 05, 2019
 	V2.1 Updated at Mar 22, 2022
 	V2.2 Updated at Aug 15, 2023
+  V2.3 Updated at Feb 2, 2024
  */
 
 "use strict";
+
+//Define maximum number of parameter
+var iMax = 26; //1..26
 
 /**
  * @description Insert img to txtCodeArea
@@ -66,11 +70,12 @@ function btnAddV_OnClick(iID) {
           iID +
           '" href="#tab' +
           iID +
-          '" role="tab" data-toggle="tab"><span>Var_' +
+          '" role="tab" data-toggle="tab"><span>Var[' +
           iID +
-          '</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
+          ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
       )
     );
+
     //Add Tab Content
     $("#tab-content").append(
       $(
@@ -95,6 +100,16 @@ function btnAddV_OnClick(iID) {
   );
 }
 
+function get_ID(inputString) {
+  const regex = /\[(.*?)\]/;
+  const matches = regex.exec(inputString);
+  if (matches && matches.length > 1) {
+    return matches[1];
+  } else {
+    return "";
+  }
+}
+
 /**
  * @description when the run button press, output the result
  * @param {*} iID new tab id
@@ -112,6 +127,9 @@ function btnRun_OnClick() {
   );
 }
 
+/**
+ * @description when the copy button press, copy the result to clipboard
+ */
 function btnCopy_OnClick() {
   let copyText = $("#txtCodeResult").html();
   let sHtml = copyText.replace(/<div>/g, "");
@@ -121,10 +139,16 @@ function btnCopy_OnClick() {
 }
 
 //btnRun - Output the result
-function btnDo_OnClick() {
+/**
+ * @description when the number [insert] button press, add tab and number
+ * Button [Generate Parameters] is pressed
+ */
+function btnGenerateParameters_OnClick() {
   let sNav = $(".nav-tabs .active").text();
   let s = sNav.split(" ");
-  let sID = s[0].toString().substring(4);
+  // let sID = s[0].toString().substring(4, -1);
+  let sID = get_ID(s[0].toString());
+
   console.log("sID: ", sID);
   let sRtn = "";
   var iFirst = +$("#txtFnum").val();
@@ -140,12 +164,10 @@ function btnDo_OnClick() {
 
 /**
  * @description Making string function
+ * Button [Generate the result below] is pressed
  * @param {*} sSrc - the html source in txtCodeArea
  */
 function makeString(sSrc) {
-  //Define maximum number of parameter
-  let iMax = 26; //1..26
-
   //Define variable
   let sRtn = "";
   let iParmLineCount = 0;
@@ -250,4 +272,96 @@ function makeString(sSrc) {
     sRtn += "<div>" + sTemp + "</div>";
   }
   return sRtn;
+}
+
+function btnExample_OnClick() {
+  console.log("btnExample_OnClick");
+}
+
+function btnCSV_OnClick(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const contents = e.target.result;
+    const csvData = parseCSV(contents);
+    console.log(csvData);
+
+    if (csvData === null) {
+      alert("Invalid CSV file");
+      return;
+    }
+
+    let lastNode = -1;
+
+    for (let i = 1; i <= iMax; i++) {
+      if ($("#txtParam" + i).length > 0) {
+        lastNode = i;
+        if ($("#txtParam" + i).html().length > 0) {
+          lastNode++;
+        }
+      }
+    }
+
+    let cols = csvData[0].length;
+    if (lastNode + cols <= iMax) {
+      for (let i = 0; i < cols; i++) {
+        let sRtn = "";
+        for (let j = 0; j < csvData.length; j++) {
+          sRtn += "<div>" + csvData[j][i].trim() + "</div>";
+        }
+        if ($("#txtParam" + (lastNode + i)).length <= 0) {
+          $("#tab-list").append(
+            $(
+              '<li class="nav-item"><a class="nav-link" id="ValTab' +
+                (lastNode + i) +
+                '" href="#tab' +
+                (lastNode + i) +
+                '" role="tab" data-toggle="tab"><span>Var[' +
+                (lastNode + i) +
+                ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
+            )
+          );
+          $("#tab-content").append(
+            $(
+              '<div class="tab-pane fade" id="tab' +
+                (lastNode + i) +
+                '" role="tabpanel"' +
+                (lastNode + i) +
+                '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
+                (lastNode + i) +
+                '"  contenteditable="plaintext-only"></dt>'
+            )
+          );
+        }
+        $('#tab-list a[href="#tab' + (lastNode + i) + '"]').tab("show");
+        $("#txtParam" + (lastNode + i)).html(sRtn);
+      }
+    } else {
+      alert(
+        "The number of columns in the CSV file exceeds the maximum number of parameters allowed"
+      );
+      return;
+    }
+  };
+
+  reader.readAsText(file);
+}
+
+function parseCSV(csvText) {
+  if (csvText.trim() === "") {
+    return null;
+  }
+  const rows = csvText.trim().split("\n");
+  const csvData = [];
+  rows.forEach((row) => {
+    const columns = row
+      .trim()
+      .replace("\r", "")
+      .replace("\t", "")
+      .split(",")
+      .map((col) => col.trim());
+    csvData.push(columns);
+  });
+  return csvData;
 }

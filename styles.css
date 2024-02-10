@@ -27,58 +27,96 @@
   box-shadow: 0 5px #e7e7e7;
   width: 95%;
   margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+.button:hover {
+  background-color: #7780ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
 
+.button:active {
+  transform: translateY(2px);
+  background-color: #535bcb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
 
+.file {
+  padding: 5px 15px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #6771ff;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #e7e7e7;
+  width: 95%;
+  margin: 10px;
+}
 
+.file:hover {
+  background-color: #7780ff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.file:active {
+  transform: translateY(2px);
+  background-color: #535bcb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+img {
+  background-color: #555;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
 
 body {
   font-family: sans-serif;
   background-color: var(--color-background);
 }
 
-
-
-#container{
-	overflow:hidden;
-    /*clear: both;*/
+#container {
+  overflow: hidden;
+  /*clear: both;*/
 }
 
-#header{
-    width: 100%;
-    text-align: center;
-    float: left;
-    /*clear: both;*/
+#header {
+  width: 100%;
+  text-align: center;
+  float: left;
+  background-color: #fff0d9;
+  /*clear: both;*/
 }
 
-#pagebody{
-	padding-bottom: 100000px;
-	margin-bottom: -100000px;
+#pagebody {
+  padding-bottom: 100000px;
+  margin-bottom: -100000px;
 }
 
-#sidebar{
-    width: 24%;
-    height: 100%;
-    background-color: white;
-    float: left;
-    margin: 5px;
-    /*clear: both;*/
+#sidebar {
+  width: 24%;
+  height: 100%;
+  background-color: white;
+  float: left;
+  margin: 5px;
+  /*clear: both;*/
 }
 
-#mainbody{
-    width: 75%;
-    height: 100%;
-    background-color: white;
-    float: left;
+#mainbody {
+  width: 75%;
+  height: 100%;
+  background-color: white;
+  float: left;
 }
 
-#footer{
-    width: 100%;
-    background-color: #8FBC8F;
-    text-align: left;
-    font-size: 14px;
-    float: inherit;
+#footer {
+  width: 100%;
+  background-color: #8fbc8f;
+  text-align: left;
+  font-size: 14px;
+  float: inherit;
 }
 
 #txtCodeArea {
@@ -91,8 +129,7 @@ body {
   font-size: 16px;
   border-style: ridge;
   .selector {
-    border-style: ;
-    border-color: #FF7F50;
+    border-color: #ff7f50;
   }
 }
 
@@ -105,13 +142,19 @@ body {
   padding: 5px;
   border-style: ridge;
   .selector {
-    border: 1px solid #FF7F50;
+    border: 1px solid #ff7f50;
   }
 }
 
 .display1 {
   background-clip: text;
-  background-image: linear-gradient(to right, #09f1b8, #00a2ff, #ff00d2, #fed90f);
+  background-image: linear-gradient(
+    to right,
+    #09f1b8,
+    #00a2ff,
+    #ff00d2,
+    #fed90f
+  );
   color: var(--color-background);
   font-size: var(--font-size);
   font-weight: var(--font-weight);
@@ -121,52 +164,57 @@ body {
   -webkit-text-stroke-width: var(--stroke-width);
 }
 
-
 .txtParam {
   width: 100%;
   height: 738px;
   overflow: scroll;
   background-color: white;
   float: left;
-  padding: 5px;	
+  padding: 5px;
   font-size: 16px;
   border-style: ridge;
   .selector {
-    border: 1px solid #6495ED;
+    border: 1px solid #6495ed;
   }
 }
 
-.txtNote{
+.txtNote {
   width: 100%;
-  background-color: #FFF8DC;
+  background-color: #fff8dc;
   float: left;
-  padding: 5px;	
-  font-size:14px;
+  padding: 5px;
+  font-size: 14px;
   font-weight: bold;
   border-style: solid;
   border-width: 1px;
-	
 }
 
-.pnlBox{
-	width: 100%;
-	float: left;
-	padding: 5px;	
-	font-size: 14px;
-	font-weight: bold;
-	border-style: solid;
-	border-width: 1px;	
-	
+.pnlBox {
+  width: 100%;
+  float: left;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 1px;
 }
 
-.txtNum{
-	width: 70px;
-	height: 30px;
-	padding: 5px;	
-	font-size: 14px;
-	font-weight: bold;
-	border-style: solid;
-	border-width: 1px;	
-	
+.txtNum {
+  width: 25%;
+  height: 30px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 1px;
 }
 
+.txtStep {
+  width: 10%;
+  height: 30px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  border-style: solid;
+  border-width: 1px;
+}
