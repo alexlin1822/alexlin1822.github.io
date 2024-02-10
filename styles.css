@@ -30,6 +30,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
+<<<<<<< HEAD
 .button:hover {
   background-color: #7780ff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
@@ -41,6 +42,8 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
+=======
+>>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
 .file {
   padding: 5px 15px;
   font-size: 16px;
@@ -55,6 +58,7 @@
   width: 95%;
   margin: 10px;
 }
+<<<<<<< HEAD
 
 .file:hover {
   background-color: #7780ff;
@@ -71,6 +75,8 @@ img {
   background-color: #555;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
+=======
+>>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
 
 body {
   font-family: sans-serif;
@@ -86,7 +92,10 @@ body {
   width: 100%;
   text-align: center;
   float: left;
+<<<<<<< HEAD
   background-color: #fff0d9;
+=======
+>>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
   /*clear: both;*/
 }
 

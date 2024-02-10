@@ -274,10 +274,13 @@ function makeString(sSrc) {
   return sRtn;
 }
 
+<<<<<<< HEAD
 function btnExample_OnClick() {
   console.log("btnExample_OnClick");
 }
 
+=======
+>>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
 function btnCSV_OnClick(event) {
   const file = event.target.files[0];
   const reader = new FileReader();
@@ -297,6 +300,7 @@ function btnCSV_OnClick(event) {
     for (let i = 1; i <= iMax; i++) {
       if ($("#txtParam" + i).length > 0) {
         lastNode = i;
+<<<<<<< HEAD
         if ($("#txtParam" + i).html().length > 0) {
           lastNode++;
         }
@@ -309,6 +313,18 @@ function btnCSV_OnClick(event) {
         let sRtn = "";
         for (let j = 0; j < csvData.length; j++) {
           sRtn += "<div>" + csvData[j][i].trim() + "</div>";
+=======
+      }
+    }
+
+    console.log("lastNode: ", lastNode);
+    let cols = csvData[0].length;
+    if (lastNode + cols <= iMax) {
+      for (let i = 1; i <= cols; i++) {
+        let sRtn = "";
+        for (let j = 0; j < csvData.length; j++) {
+          sRtn += "<div>" + csvData[j][i - 1].trim() + "</div>";
+>>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
         }
         if ($("#txtParam" + (lastNode + i)).length <= 0) {
           $("#tab-list").append(
@@ -355,12 +371,16 @@ function parseCSV(csvText) {
   const rows = csvText.trim().split("\n");
   const csvData = [];
   rows.forEach((row) => {
+<<<<<<< HEAD
     const columns = row
       .trim()
       .replace("\r", "")
       .replace("\t", "")
       .split(",")
       .map((col) => col.trim());
+=======
+    const columns = row.split(",");
+>>>>>>> b09ee4b81845206cbef7c49452c5a8ee9e65d57c
     csvData.push(columns);
   });
   return csvData;
