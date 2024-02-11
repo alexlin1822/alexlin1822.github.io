@@ -1,12 +1,13 @@
 /**
-	Author: Alex Lam
+  Author: Alex Lam
 	Application: String Maker
-	Email: Alexlam1822@gmail.com
+	Email: Alexlin1822@hotmail.com
 
 	V2.0 Updated at Jan 05, 2019
 	V2.1 Updated at Mar 22, 2022
 	V2.2 Updated at Aug 15, 2023
   V2.3 Updated at Feb 2, 2024
+  V3.0 Updated at Feb 10, 2024
  */
 
 "use strict";
@@ -100,6 +101,74 @@ function btnAddV_OnClick(iID) {
   );
 }
 
+/**
+ * Add the parameters from the 2-d array which includes csv data to the tabs
+ * @param {} csvData  2-d array of csv data
+ * @returns
+ */
+function addParamsFromArray(csvData) {
+  let lastNode = -1;
+
+  for (let i = 1; i <= iMax; i++) {
+    if ($("#txtParam" + i).length > 0) {
+      lastNode = i;
+
+      if ($("#txtParam" + i).html().length > 0) {
+        lastNode++;
+      }
+    }
+  }
+
+  let cols = csvData[0].length;
+  if (lastNode + cols <= iMax) {
+    for (let i = 0; i < cols; i++) {
+      let sRtn = "";
+      for (let j = 0; j < csvData.length; j++) {
+        sRtn += "<div>" + csvData[j][i].trim() + "</div>";
+      }
+      if ($("#txtParam" + (lastNode + i)).length <= 0) {
+        //Add Tab Title
+        $("#tab-list").append(
+          $(
+            '<li class="nav-item"><a class="nav-link" id="ValTab' +
+              (lastNode + i) +
+              '" href="#tab' +
+              (lastNode + i) +
+              '" role="tab" data-toggle="tab"><span>Var[' +
+              (lastNode + i) +
+              ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
+          )
+        );
+        //Add Tab Content
+        $("#tab-content").append(
+          $(
+            '<div class="tab-pane fade" id="tab' +
+              (lastNode + i) +
+              '" role="tabpanel"' +
+              (lastNode + i) +
+              '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
+              (lastNode + i) +
+              '"  contenteditable="plaintext-only"></dt>'
+          )
+        );
+      }
+      // $('#tab-list a[href="#tab' + (lastNode + i) + '"]').tab("show");
+      $("#txtParam" + (lastNode + i)).html(sRtn);
+    }
+    $('#tab-list a[href="#tab' + lastNode + '"]').tab("show");
+  } else {
+    alert(
+      "The number of columns in the CSV file exceeds the maximum number of parameters allowed"
+    );
+    return;
+  }
+}
+
+/**
+ * btnCSV_OnClick event handler
+ * @description when the csv file is selected, read the file and add the parameters to the tabs
+ * @param {*} event
+ */
 function btnCSV_OnClick(event) {
   const file = event.target.files[0];
   const reader = new FileReader();
@@ -107,71 +176,23 @@ function btnCSV_OnClick(event) {
   reader.onload = function (e) {
     const contents = e.target.result;
     const csvData = parseCSV(contents);
-    console.log(csvData);
 
     if (csvData === null) {
       alert("Invalid CSV file");
       return;
     }
 
-    let lastNode = -1;
-
-    for (let i = 1; i <= iMax; i++) {
-      if ($("#txtParam" + i).length > 0) {
-        lastNode = i;
-
-        if ($("#txtParam" + i).html().length > 0) {
-          lastNode++;
-        }
-      }
-    }
-
-    console.log("lastNode: ", lastNode);
-    let cols = csvData[0].length;
-    if (lastNode + cols <= iMax) {
-      for (let i = 0; i < cols; i++) {
-        let sRtn = "";
-        for (let j = 0; j < csvData.length; j++) {
-          sRtn += "<div>" + csvData[j][i].trim() + "</div>";
-        }
-        if ($("#txtParam" + (lastNode + i)).length <= 0) {
-          $("#tab-list").append(
-            $(
-              '<li class="nav-item"><a class="nav-link" id="ValTab' +
-                (lastNode + i) +
-                '" href="#tab' +
-                (lastNode + i) +
-                '" role="tab" data-toggle="tab"><span>Var[' +
-                (lastNode + i) +
-                ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
-            )
-          );
-          $("#tab-content").append(
-            $(
-              '<div class="tab-pane fade" id="tab' +
-                (lastNode + i) +
-                '" role="tabpanel"' +
-                (lastNode + i) +
-                '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
-                (lastNode + i) +
-                '"  contenteditable="plaintext-only"></dt>'
-            )
-          );
-        }
-        $('#tab-list a[href="#tab' + (lastNode + i) + '"]').tab("show");
-        $("#txtParam" + (lastNode + i)).html(sRtn);
-      }
-    } else {
-      alert(
-        "The number of columns in the CSV file exceeds the maximum number of parameters allowed"
-      );
-      return;
-    }
+    addParamsFromArray(csvData);
   };
 
   reader.readAsText(file);
 }
 
+/**
+ * @description Get the id from the string which includes Var[ID]
+ * @param {} inputString
+ * @returns
+ */
 function get_ID(inputString) {
   const regex = /\[(.*?)\]/;
   const matches = regex.exec(inputString);
@@ -186,9 +207,10 @@ function get_ID(inputString) {
  * @description when the run button press, output the result
  * @param {*} iID new tab id
  */
-function btnRun_OnClick() {
+function btnGenerateResult_OnClick() {
   $("#footer").text("Processing.....");
   let sText = $("#txtCodeArea").html();
+  console.log(sText);
   $("#txtCodeResult").html(makeString(sText));
 
   let myDate = new Date();
@@ -197,20 +219,27 @@ function btnRun_OnClick() {
       myDate.toLocaleString() +
       ".      String Maker by Alex. Email: Alexlam1822@gmail.com"
   );
+  copyToClipboard();
 }
 
 /**
  * @description when the copy button press, copy the result to clipboard
  */
 function btnCopy_OnClick() {
-  let copyText = $("#txtCodeResult").html();
-  let sHtml = copyText.replace(/<div>/g, "");
-  let tt = sHtml.replace(/<\/div>/g, "\n");
-  navigator.clipboard.writeText(tt);
-  alert("Result is copied!");
+  copyToClipboard();
+  alert("The result has been copied to the clipboard");
 }
 
-//btnRun - Output the result
+function copyToClipboard() {
+  let tt = "";
+  const formattedContents = $("#txtCodeResult")
+    .find("div")
+    .map(function () {
+      tt += $(this).text().trim() + "\n";
+    });
+  navigator.clipboard.writeText(tt);
+}
+
 /**
  * @description when the number [insert] button press, add tab and number
  * Button [Generate Parameters] is pressed
@@ -218,10 +247,7 @@ function btnCopy_OnClick() {
 function btnGenerateParameters_OnClick() {
   let sNav = $(".nav-tabs .active").text();
   let s = sNav.split(" ");
-  // let sID = s[0].toString().substring(4, -1);
   let sID = get_ID(s[0].toString());
-
-  console.log("sID: ", sID);
   let sRtn = "";
   var iFirst = +$("#txtFnum").val();
   var iLast = +$("#txtLnum").val();
@@ -259,15 +285,11 @@ function makeString(sSrc) {
       continue;
     }
 
-    // console.log("txtParam: ", $("#txtParam" + j));
-
     let sHtml = $("#txtParam" + j).html();
 
     if (sHtml.slice(0, 5) == "<div>") {
       sHtml = sHtml.slice(5, sHtml.length - 6);
     }
-
-    console.log("sHtml a= ", sHtml);
 
     if (sHtml != "") {
       sHtml = sHtml.replace(/<\/div>/g, "");
@@ -276,14 +298,11 @@ function makeString(sSrc) {
       if (sHtml.includes("\r")) {
         sHtml = sHtml.replace(/<div>/g, "");
         slParam[j] = sHtml.split("\r");
-        console.log("Split R ");
       } else if (sHtml.includes("\n")) {
         sHtml = sHtml.replace(/<div>/g, "");
         slParam[j] = sHtml.split("\n");
-        console.log("Split N ");
       } else if (sHtml.includes("<div>")) {
         slParam[j] = sHtml.split("<div>");
-        console.log("Split <div>");
       }
 
       //delete the blank
@@ -294,8 +313,6 @@ function makeString(sSrc) {
           break;
         }
       }
-
-      console.log(slParam[j]);
 
       //count the max length of parameters
       if (slParam[j].length > iParmLineCount) {
@@ -332,7 +349,6 @@ function makeString(sSrc) {
     let sTemp = sSrc;
     for (let i = 0; i <= iMax; i++) {
       let sKey;
-      console.log(slParam[i]);
       if (k >= slParam[i].length) {
         sKey = "";
       } else {
@@ -346,10 +362,11 @@ function makeString(sSrc) {
   return sRtn;
 }
 
-function btnExample_OnClick() {
-  console.log("btnExample_OnClick");
-}
-
+/**
+ * @description csv text to 2-d array
+ * @param {} csvText
+ * @returns
+ */
 function parseCSV(csvText) {
   if (csvText.trim() === "") {
     return null;
@@ -367,4 +384,33 @@ function parseCSV(csvText) {
     csvData.push(columns);
   });
   return csvData;
+}
+
+/**
+ * @description when the example button press, add the example parameters to the tabs
+ * @returns
+ */
+function btnExample_OnClick() {
+  const contents = "John, male, 18\nGeen, female, 20\nLily, female, 21";
+
+  const csvData = parseCSV(contents);
+
+  if (csvData === null) {
+    alert("Invalid CSV file");
+    return;
+  }
+
+  addParamsFromArray(csvData);
+
+  let sText =
+    'Name: <img src="blue/1.png" width="16px" height="16px">,  Gender: <img src="blue/2.png" width="16px" height="16px">, Age:<img src="blue/3.png" width="16px" height="16px">';
+  $("#txtCodeArea").html(sText);
+  btnGenerateResult_OnClick(); //Generate the result
+}
+
+/**
+ * @description when the clear button press, clear the content
+ */
+function btnClear_OnClick() {
+  window.location.reload();
 }

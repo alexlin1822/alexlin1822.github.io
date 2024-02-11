@@ -1,13 +1,13 @@
 <!-- 
 	Author: Alex Lam
 	Application: String Maker
-	Email: Alexlam1822@gmail.com
+	Email: Alexlin1822@hotmail.com
 
 	V2.0 Updated at Jan 05, 2019
 	V2.1 Updated at Mar 22, 2022
 	V2.2 Updated at Aug 15, 2023
   V2.3 Updated at Feb 2, 2024
-
+  V3.0 Updated at Feb 10, 2024
 -->
 
 <!DOCTYPE html>
@@ -118,6 +118,7 @@
                       class="txtParam"
                       id="txtParam1"
                       contenteditable="plaintext-only"
+                      height="30px"
                     ></dt>
                   </div>
                 </div>
@@ -128,7 +129,7 @@
 
         <div id="mainbody" class="h-80 d-inline-block">
           <dl>
-            <dt height="100px">
+            <dt>
               <p class="h5">Insert The Variable:</p>
               <img
                 id="v1"
@@ -338,6 +339,39 @@
                 type="button"
                 onclick="btnAddV_OnClick(26)"
               />
+              <button
+                id="btnExample"
+                type="button"
+                class="button"
+                style="
+                  width: 80px;
+                  height: 32px;
+                  font-size: 18px;
+                  padding: 0px;
+                  margin-top: 2px;
+                  margin-left: 20px;
+                "
+                onclick="btnExample_OnClick()"
+              >
+                Example
+              </button>
+              <button
+                id="btnClear"
+                type="button"
+                class="button"
+                style="
+                  width: 80px;
+                  height: 32px;
+                  font-size: 18px;
+                  padding: 0px;
+                  margin-top: 2px;
+                  margin-left: 5px;
+                "
+                onclick="btnClear_OnClick()"
+              >
+                Clear
+              </button>
+
               <br />
             </dt>
           </dl>
@@ -355,12 +389,12 @@
             id="txtCodeArea"
             contenteditable="plaintext-only"
           ></dt>
-          <dt height="50px">
+          <dt>
             <button
-              id="btnRun"
+              id="btnGenerateResult"
               type="button"
               class="button"
-              onclick="btnRun_OnClick()"
+              onclick="btnGenerateResult_OnClick()"
             >
               Generate the result below
             </button>
@@ -370,7 +404,7 @@
             id="txtCodeResult"
             contenteditable="readonly"
           ></dt>
-          <dt height="50px">
+          <dt>
             <button
               id="btnCopy"
               type="button"
@@ -383,8 +417,8 @@
         </div>
       </div>
     </div>
-    <div id="footer" class="w-100 text-center">
-      How a wonderful day. String maker by Alex. Email: Alexlam1822@gmail.com
-    </div>
   </body>
+  <div id="footer" class="w-100 text-center">
+    How a wonderful day. String maker by Alex. Email: Alexlam1822@gmail.com
+  </div>
 </html>
