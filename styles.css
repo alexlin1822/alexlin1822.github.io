@@ -21,7 +21,7 @@
   cursor: pointer;
   outline: none;
   color: #fff;
-  background-color: #6771ff;
+  background-color: #008cba;
   border: none;
   border-radius: 15px;
   box-shadow: 0 5px #e7e7e7;
@@ -31,19 +31,28 @@
 }
 
 .button:hover {
-  background-color: #7780ff;
+  background-color: #0094d9;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .button:active {
   transform: translateY(2px);
-  background-color: #535bcb;
+  background-color: #00b4f4;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .file {
-  padding: 5px 15px;
-  font-size: 16px;
+  display: none;
+}
+
+.button-small {
+  width: 80px;
+  height: 32px;
+  font-size: 18px;
+  padding: 0px;
+  margin: 5px;
+  margin-top: 2px;
+  margin-left: 20px;
   text-align: center;
   cursor: pointer;
   outline: none;
@@ -52,16 +61,15 @@
   border: none;
   border-radius: 15px;
   box-shadow: 0 5px #e7e7e7;
-  width: 95%;
-  margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-.file:hover {
+.button-small:hover {
   background-color: #7780ff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-.file:active {
+.button-small:active {
   transform: translateY(2px);
   background-color: #535bcb;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
@@ -134,7 +142,7 @@ body {
   padding: 5px;
   font-size: 16px;
   border-style: ridge;
-  height: 30vh;
+  height: 34vh;
   .selector {
     border-color: #ff7f50;
   }
@@ -173,7 +181,7 @@ body {
 
 .txtParam {
   width: 100%;
-  height: 53vh;
+  height: 63vh;
   overflow: scroll;
   background-color: white;
   float: left;

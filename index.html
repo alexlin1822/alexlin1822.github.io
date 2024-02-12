@@ -56,17 +56,37 @@
           <dl>
             <div class="row">
               <div class="col-md-12">
-                <div class="w-100">
-                  Select a CSV file (no TITLE) to import Parameters:
-                </div>
                 <div>
+                  <button
+                    id="btnImportCSV"
+                    type="button"
+                    class="button"
+                    style="
+                      margin: 0px;
+                      margin-bottom: 10px;
+                      width: 180px;
+                      font-size: 18px;
+                    "
+                    onclick="btnImportCSV_OnClick()"
+                  >
+                    Import CSV
+                  </button>
                   <input
                     type="file"
                     class="file"
-                    id="btnCSV"
+                    id="btnImportCSV_file"
                     accept=".csv"
-                    onchange="btnCSV_OnClick(event)"
+                    onchange="btnImportCSV_file_OnChange(event)"
                   />
+                  <button
+                    id="btnParameters"
+                    type="button"
+                    class="button-small"
+                    style="margin-left: 20px; margin-bottom: 10px; width: 100px"
+                    onclick="btnExportParameters_OnClick()"
+                  >
+                    Export
+                  </button>
                 </div>
                 <!-- Nav tabs -->
                 <ul id="tab-list" class="nav nav-tabs" role="tablist">
@@ -129,6 +149,56 @@
 
         <div id="mainbody" class="h-80 d-inline-block">
           <dl>
+            <dt>
+              <button
+                id="btnImportTemplate"
+                type="button"
+                class="button"
+                style="
+                  margin-bottom: 10px;
+                  margin-top: 5px;
+                  width: 180px;
+                  font-size: 18px;
+                "
+                onclick="btnImportTemplate_OnClick()"
+              >
+                Import Template
+              </button>
+              <input
+                type="file"
+                class="file"
+                id="btnImportTemplate_file"
+                accept=".tpl"
+                onchange="btnImportTemplate_file_OnChange(event)"
+              />
+              <button
+                id="btnExportTemplate"
+                type="button"
+                class="button-small"
+                style="margin-left: 10px; width: 180px"
+                onclick="btnExportTemplate_OnClick()"
+              >
+                Export Template
+              </button>
+              <button
+                id="btnExample"
+                type="button"
+                class="button-small"
+                style="margin-left: 50px"
+                onclick="btnExample_OnClick()"
+              >
+                Example
+              </button>
+              <button
+                id="btnClear"
+                type="button"
+                class="button-small"
+                style="margin-left: 5px"
+                onclick="btnClear_OnClick()"
+              >
+                Clear
+              </button>
+            </dt>
             <dt>
               <p class="h5">Insert The Variable:</p>
               <img
@@ -339,39 +409,6 @@
                 type="button"
                 onclick="btnAddV_OnClick(26)"
               />
-              <button
-                id="btnExample"
-                type="button"
-                class="button"
-                style="
-                  width: 80px;
-                  height: 32px;
-                  font-size: 18px;
-                  padding: 0px;
-                  margin-top: 2px;
-                  margin-left: 20px;
-                "
-                onclick="btnExample_OnClick()"
-              >
-                Example
-              </button>
-              <button
-                id="btnClear"
-                type="button"
-                class="button"
-                style="
-                  width: 80px;
-                  height: 32px;
-                  font-size: 18px;
-                  padding: 0px;
-                  margin-top: 2px;
-                  margin-left: 5px;
-                "
-                onclick="btnClear_OnClick()"
-              >
-                Clear
-              </button>
-
               <br />
             </dt>
           </dl>
@@ -404,16 +441,6 @@
             id="txtCodeResult"
             contenteditable="readonly"
           ></dt>
-          <dt>
-            <button
-              id="btnCopy"
-              type="button"
-              class="button"
-              onclick="btnCopy_OnClick()"
-            >
-              Copy result
-            </button>
-          </dt>
         </div>
       </div>
     </div>

@@ -165,30 +165,6 @@ function addParamsFromArray(csvData) {
 }
 
 /**
- * btnCSV_OnClick event handler
- * @description when the csv file is selected, read the file and add the parameters to the tabs
- * @param {*} event
- */
-function btnCSV_OnClick(event) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-
-  reader.onload = function (e) {
-    const contents = e.target.result;
-    const csvData = parseCSV(contents);
-
-    if (csvData === null) {
-      alert("Invalid CSV file");
-      return;
-    }
-
-    addParamsFromArray(csvData);
-  };
-
-  reader.readAsText(file);
-}
-
-/**
  * @description Get the id from the string which includes Var[ID]
  * @param {} inputString
  * @returns
@@ -217,7 +193,7 @@ function btnGenerateResult_OnClick() {
   $("#footer").text(
     "Finished at " +
       myDate.toLocaleString() +
-      ".      String Maker by Alex. Email: Alexlam1822@gmail.com"
+      ". Result copied to Clipboard!!   String Maker by Alex. Email: Alexlam1822@gmail.com"
   );
   copyToClipboard();
 }
@@ -374,8 +350,9 @@ function parseCSV(csvText) {
   const rows = csvText.trim().split("\n");
   const csvData = [];
   rows.forEach((row) => {
+    row = row.trim();
+    row = row.endsWith(",") ? row.slice(0, -1) : row;
     const columns = row
-      .trim()
       .replace("\r", "")
       .replace("\t", "")
       .split(",")
@@ -413,4 +390,161 @@ function btnExample_OnClick() {
  */
 function btnClear_OnClick() {
   window.location.reload();
+}
+
+/**
+ *  @description when the button press, call the related file input to select the file
+ */
+function btnImportCSV_OnClick() {
+  btnImportCSV_file.click();
+}
+function btnExportParameters_OnClick() {
+  let content = preCSV();
+  let filename = "Parameters.csv";
+  saveToFile(content, filename);
+}
+function btnImportTemplate_OnClick() {
+  btnImportTemplate_file.click();
+}
+function btnExportTemplate_OnClick() {
+  let content = $("#txtCodeArea").html();
+  let filename = "template.tpl";
+  saveToFile(content, filename);
+}
+
+/**
+ * @description when the csv file is selected, read the file and add the parameters to the tabs
+ * @param {*} event
+ */
+function btnImportCSV_file_OnChange(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const contents = e.target.result;
+    const csvData = parseCSV(contents);
+
+    if (csvData === null) {
+      alert("Invalid CSV file");
+      return;
+    }
+
+    addParamsFromArray(csvData);
+  };
+
+  reader.readAsText(file);
+}
+
+/**
+ * @description when the template file is selected, read the file and add the content to the txtCodeArea
+ * @param {} event
+ */
+function btnImportTemplate_file_OnChange(event) {
+  console.log("btnImportTemplate_file_OnChange");
+
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const contents = e.target.result;
+    console.log(contents);
+    if (contents === null) {
+      alert("Invalid template file");
+      return;
+    }
+    $("#txtCodeArea").html(contents);
+  };
+  reader.readAsText(file);
+}
+
+/**
+ * @description Save the content to a file
+ * @param {*} content
+ * @param {*} filename
+ */
+function saveToFile(content, filename) {
+  let stringData = content;
+  const dataURL = `data:text/plain;base64,${btoa(stringData)}`;
+  const downloadLink = document.createElement("a");
+  downloadLink.href = dataURL;
+  downloadLink.download = filename;
+  downloadLink.target = "_blank";
+  downloadLink.click();
+}
+
+/**
+ * @description convert the 2-d array to csv
+ * @returns
+ */
+function preCSV() {
+  //Define variable
+  let sRtn = "";
+  let iParmLineCount = 0;
+  let bParmDiff = false;
+  let slParam = new Array();
+  // count parameter;
+  for (let j = 0; j <= iMax; j++) {
+    slParam[j] = new Array();
+
+    if ($("#txtParam" + j).length <= 0) {
+      continue;
+    }
+
+    let sHtml = $("#txtParam" + j).html();
+
+    if (sHtml.slice(0, 5) == "<div>") {
+      sHtml = sHtml.slice(5, sHtml.length - 6);
+    }
+
+    if (sHtml != "") {
+      sHtml = sHtml.replace(/<\/div>/g, "");
+      sHtml = sHtml.replace(/<br>/g, "");
+
+      if (sHtml.includes("\r")) {
+        sHtml = sHtml.replace(/<div>/g, "");
+        slParam[j] = sHtml.split("\r");
+      } else if (sHtml.includes("\n")) {
+        sHtml = sHtml.replace(/<div>/g, "");
+        slParam[j] = sHtml.split("\n");
+      } else if (sHtml.includes("<div>")) {
+        slParam[j] = sHtml.split("<div>");
+      }
+
+      //delete the blank
+      for (let i = slParam[j].length - 1; i >= 0; i--) {
+        if (slParam[j][i] == "") {
+          slParam[j].splice(i, 1);
+        } else {
+          break;
+        }
+      }
+
+      //count the max length of parameters
+      if (slParam[j].length > iParmLineCount) {
+        if (iParmLineCount > 0) {
+          bParmDiff = true;
+        }
+        iParmLineCount = slParam[j].length;
+      }
+    } else {
+      if (iParmLineCount > 0) {
+        bParmDiff = true;
+      }
+    }
+  }
+
+  // 2-D array to csv
+  for (let k = 0; k < iParmLineCount; k++) {
+    for (let i = 1; i <= iMax; i++) {
+      let sKey;
+      if (k >= slParam[i].length) {
+        sKey = "";
+      } else {
+        sKey = slParam[i][k];
+      }
+      sRtn += sKey + ",";
+    }
+    sRtn = sRtn.slice(0, -1) + "\n";
+  }
+  return sRtn;
 }
