@@ -351,7 +351,9 @@ function parseCSV(csvText) {
   const csvData = [];
   rows.forEach((row) => {
     row = row.trim();
-    row = row.endsWith(",") ? row.slice(0, -1) : row;
+    while (row.endsWith(",")) {
+      row = row.slice(0, -1);
+    }
     const columns = row
       .replace("\r", "")
       .replace("\t", "")
@@ -398,16 +400,24 @@ function btnClear_OnClick() {
 function btnImportCSV_OnClick() {
   btnImportCSV_file.click();
 }
-function btnExportParameters_OnClick() {
-  let content = preCSV();
-  let filename = "Parameters.csv";
-  saveToFile(content, filename);
+function btnClearParameters_OnClick() {
+  console.log("btnClearParameters_OnClick");
+  // let content = preCSV();
+  // let filename = "Parameters.csv";
+  // saveToFile(content, filename);
 }
 function btnImportTemplate_OnClick() {
   btnImportTemplate_file.click();
 }
 function btnExportTemplate_OnClick() {
-  let content = $("#txtCodeArea").html();
+  let tpl_content = $("#txtCodeArea").html();
+  let csv_content = preCSV();
+  let content =
+    "[startTemplate.]" +
+    tpl_content +
+    "[endTemplate.]\n[startParameters.]" +
+    csv_content +
+    "[endParameters.]";
   let filename = "template.tpl";
   saveToFile(content, filename);
 }
@@ -440,8 +450,6 @@ function btnImportCSV_file_OnChange(event) {
  * @param {} event
  */
 function btnImportTemplate_file_OnChange(event) {
-  console.log("btnImportTemplate_file_OnChange");
-
   const file = event.target.files[0];
   const reader = new FileReader();
 
@@ -452,9 +460,43 @@ function btnImportTemplate_file_OnChange(event) {
       alert("Invalid template file");
       return;
     }
-    $("#txtCodeArea").html(contents);
+
+    let tpl_content = getSubstring(
+      contents,
+      "[startTemplate.]",
+      "[endTemplate.]"
+    );
+
+    let csv_content = getSubstring(
+      contents,
+      "[startParameters.]",
+      "[endParameters.]"
+    );
+
+    $("#txtCodeArea").html(tpl_content);
+    const csvData = parseCSV(csv_content);
+    addParamsFromArray(csvData);
   };
   reader.readAsText(file);
+}
+
+/**
+ * @description Getting the substring between startMarker and endMarker
+ * @param {*} str
+ * @param {*} startMarker
+ * @param {*} endMarker
+ * @returns
+ */
+function getSubstring(str, startMarker, endMarker) {
+  const startIndex = str.indexOf(startMarker) + startMarker.length;
+  const endIndex = str.indexOf(endMarker);
+
+  // Check if markers are found and endIndex is after startIndex
+  if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+    return str.substring(startIndex, endIndex);
+  } else {
+    return ""; // Return empty string if markers not found or invalid position
+  }
 }
 
 /**
