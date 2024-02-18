@@ -1,19 +1,38 @@
 /**
   Author: Alex Lam
-	Application: String Maker
+	Application: Text Generator
 	Email: Alexlin1822@hotmail.com
 
 	V2.0 Updated at Jan 05, 2019
 	V2.1 Updated at Mar 22, 2022
 	V2.2 Updated at Aug 15, 2023
   V2.3 Updated at Feb 2, 2024
-  V3.0 Updated at Feb 10, 2024
+  V3.0 Updated at Feb 17, 2024
  */
 
 "use strict";
 
 //Define maximum number of parameter
 var iMax = 26; //1..26
+
+function resizeText() {
+  // const textElement = $("#txtpara").get(0);
+  // const windowHeight = window.innerHeight;
+  // console.log(windowHeight);
+  // // $("#txtParam1").height(windowHeight+"px");
+  // $("#txxtCodeArea").style.height = windowHeight - 300;
+  // $("#txtCodeResult").style.height =
+  //   windowHeight - $("#txxtCodeArea").style.height;
+  // style.height = newHeight + "px";
+  // const padding = 20; // Adjust this value for top and bottom padding
+  // const maxHeight = windowHeight - padding;
+  // textElement.style.height = `${maxHeight}px`;
+}
+
+window.addEventListener("resize", resizeText);
+
+// Call the function initially to set the height
+resizeText();
 
 /**
  * @description Insert img to txtCodeArea
@@ -58,37 +77,49 @@ function pasteHtmlAtCaret(html) {
 }
 
 /**
+ * Add tab and empty content
+ * @param {*} iID
+ */
+function addTab(iID) {
+  //Add Tab Title
+  $("#tab-list").append(
+    $(
+      '<li class="nav-item"><a class="nav-link" id="ValTab' +
+        iID +
+        '" href="#tab' +
+        iID +
+        '" role="tab" data-toggle="tab"><span class="var">Var[' +
+        iID +
+        "]</span> " +
+        '<span class="glyphicon glyphicon-pencil text-muted edit"></span>' +
+        '<button class="close" type="button" onclick="btnDelV_OnClick(' +
+        iID +
+        ')" title="Remove this page">×</button></a></li>'
+    )
+  );
+
+  //Add Tab Content
+  $("#tab-content").append(
+    $(
+      '<div class="tab-pane fade" id="tab' +
+        iID +
+        '" role="tabpanel"' +
+        iID +
+        '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
+        iID +
+        '"  contenteditable="plaintext-only"></dt>'
+    )
+  );
+}
+
+/**
  * @description when the number [insert] button press, add tab and number
  * @param {*} iID new tab id
  */
 function btnAddV_OnClick(iID) {
   //Add or show exist tab of variable
   if ($("#tab" + iID).length <= 0) {
-    //Add Tab Title
-    $("#tab-list").append(
-      $(
-        '<li class="nav-item"><a class="nav-link" id="ValTab' +
-          iID +
-          '" href="#tab' +
-          iID +
-          '" role="tab" data-toggle="tab"><span>Var[' +
-          iID +
-          ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
-      )
-    );
-
-    //Add Tab Content
-    $("#tab-content").append(
-      $(
-        '<div class="tab-pane fade" id="tab' +
-          iID +
-          '" role="tabpanel"' +
-          iID +
-          '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
-          iID +
-          '"  contenteditable="plaintext-only"></dt>'
-      )
-    );
+    addTab(iID);
   }
 
   $('#tab-list a[href="#tab' + iID + '"]').tab("show");
@@ -99,6 +130,29 @@ function btnAddV_OnClick(iID) {
       '<img src="blue/' + iID + '.png" width="16px" height="16px">'
     )
   );
+}
+
+/**
+ * @description when the number [delete] button press, delete the tab and content
+ * @param {*} iID
+ */
+function btnDelV_OnClick(iID) {
+  if ($("#tab" + iID).length > 0) {
+    if (confirm("Do you want to delete the parameter?") == true) {
+      let sText = $("#txtCodeArea").html();
+      if (sText.includes('<img src="blue/' + iID + '.png"')) {
+        alert(
+          "The parameter is used in the template! \nPlease delete it in template first!"
+        );
+      } else {
+        console.log($("#txtCodeArea").html());
+        //delete tab and content
+        $("#ValTab" + iID).remove();
+        $("#tab" + iID).remove();
+        $('#tab-list a[href="#tab1').tab("show");
+      }
+    }
+  }
 }
 
 /**
@@ -127,32 +181,8 @@ function addParamsFromArray(csvData) {
         sRtn += "<div>" + csvData[j][i].trim() + "</div>";
       }
       if ($("#txtParam" + (lastNode + i)).length <= 0) {
-        //Add Tab Title
-        $("#tab-list").append(
-          $(
-            '<li class="nav-item"><a class="nav-link" id="ValTab' +
-              (lastNode + i) +
-              '" href="#tab' +
-              (lastNode + i) +
-              '" role="tab" data-toggle="tab"><span>Var[' +
-              (lastNode + i) +
-              ']</span> <span class="glyphicon glyphicon-pencil text-muted edit"></span> <button class="close" type="button" title="Remove this page">×</button></a></li>'
-          )
-        );
-        //Add Tab Content
-        $("#tab-content").append(
-          $(
-            '<div class="tab-pane fade" id="tab' +
-              (lastNode + i) +
-              '" role="tabpanel"' +
-              (lastNode + i) +
-              '"><div class="txtNote">One parameter per line</div><dt class="txtParam" id="txtParam' +
-              (lastNode + i) +
-              '"  contenteditable="plaintext-only"></dt>'
-          )
-        );
+        addTab(lastNode + i);
       }
-      // $('#tab-list a[href="#tab' + (lastNode + i) + '"]').tab("show");
       $("#txtParam" + (lastNode + i)).html(sRtn);
     }
     $('#tab-list a[href="#tab' + lastNode + '"]').tab("show");
@@ -193,7 +223,7 @@ function btnGenerateResult_OnClick() {
   $("#footer").text(
     "Finished at " +
       myDate.toLocaleString() +
-      ". Result copied to Clipboard!!   String Maker by Alex. Email: Alexlam1822@gmail.com"
+      ". Result copied to Clipboard!!   Text Generator by Alex. Email: Alexlam1822@gmail.com"
   );
   copyToClipboard();
 }
@@ -371,7 +401,6 @@ function parseCSV(csvText) {
  */
 function btnExample_OnClick() {
   const contents = "John, male, 18\nGeen, female, 20\nLily, female, 21";
-
   const csvData = parseCSV(contents);
 
   if (csvData === null) {
@@ -400,15 +429,29 @@ function btnClear_OnClick() {
 function btnImportCSV_OnClick() {
   btnImportCSV_file.click();
 }
+
+/**
+ * @description clear the parameters
+ */
 function btnClearParameters_OnClick() {
   console.log("btnClearParameters_OnClick");
-  // let content = preCSV();
-  // let filename = "Parameters.csv";
-  // saveToFile(content, filename);
+  for (let i = 1; i <= iMax; i++) {
+    if ($("#txtParam" + i).length > 0) {
+      $("#txtParam" + i).html("");
+    }
+  }
 }
+
+/**
+ * @description call importTemplate file input to select the file
+ */
 function btnImportTemplate_OnClick() {
   btnImportTemplate_file.click();
 }
+
+/**
+ * @description export the template and parameters to a file
+ */
 function btnExportTemplate_OnClick() {
   let tpl_content = $("#txtCodeArea").html();
   let csv_content = preCSV();

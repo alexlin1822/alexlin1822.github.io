@@ -1,6 +1,6 @@
 <!-- 
 	Author: Alex Lam
-	Application: String Maker
+	Application: Text Generator
 	Email: Alexlin1822@hotmail.com
 
 	V2.0 Updated at Jan 05, 2019
@@ -40,31 +40,42 @@
 
     <script type="text/javascript" src="inset.js"></script>
 
-    <title>String Maker</title>
+    <title>Text Generator</title>
   </head>
 
   <body>
     <div id="container">
       <div id="header">
         <h3 class="display1" onclick="btnExample_OnClick()">
-          Welcome to String Maker by Alex
+          Welcome to Text Generator by Alex
         </h3>
       </div>
 
       <div id="pagebody">
-        <div id="sidebar" class="h-80 d-inline-block">
+        <div id="sidebar" class="h-80 d-inline-block block-bolder">
           <dl>
             <div class="row">
               <div class="col-md-12">
+                <div class="block-title">
+                  Parameters
+                  <button
+                    id="btnParameters"
+                    type="button"
+                    class="button-small"
+                    style="margin-bottom: 10px; width: 180px; float: right"
+                    onclick="btnClearParameters_OnClick()"
+                  >
+                    Clear Parameters
+                  </button>
+                </div>
                 <div>
                   <button
                     id="btnImportCSV"
                     type="button"
                     class="button"
                     style="
-                      margin: 0px;
+                      margin-top: 5px;
                       margin-bottom: 10px;
-                      width: 180px;
                       font-size: 18px;
                     "
                     onclick="btnImportCSV_OnClick()"
@@ -78,25 +89,17 @@
                     accept=".csv"
                     onchange="btnImportCSV_file_OnChange(event)"
                   />
-                  <button
-                    id="btnParameters"
-                    type="button"
-                    class="button-small"
-                    style="margin-left: 20px; margin-bottom: 10px; width: 200px"
-                    onclick="btnClearParameters_OnClick()"
-                  >
-                    Clear Parameters
-                  </button>
                 </div>
                 <!-- Nav tabs -->
                 <ul id="tab-list" class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
                     <a
                       class="nav-link active"
+                      id="ValTab1"
                       href="#tab1"
                       role="tab"
                       data-toggle="tab"
-                      ><span>Var[1] </span
+                      ><span class="var">Var[1] </span
                       ><span
                         class="glyphicon glyphicon-pencil text-muted edit"
                       ></span
@@ -148,6 +151,27 @@
         </div>
 
         <div id="mainbody" class="h-80 d-inline-block">
+          <div class="block-title">
+            Template
+            <button
+              id="btnExample"
+              type="button"
+              class="button-small"
+              style="margin-left: 10px; float: right"
+              onclick="btnExample_OnClick()"
+            >
+              Example
+            </button>
+            <button
+              id="btnClear"
+              type="button"
+              class="button-small"
+              style="margin-left: 5px; float: right"
+              onclick="btnClear_OnClick()"
+            >
+              Clear All
+            </button>
+          </div>
           <dl>
             <dt>
               <button
@@ -157,7 +181,7 @@
                 style="
                   margin-bottom: 10px;
                   margin-top: 5px;
-                  width: 180px;
+                  width: 200px;
                   font-size: 18px;
                 "
                 onclick="btnImportTemplate_OnClick()"
@@ -179,24 +203,6 @@
                 onclick="btnExportTemplate_OnClick()"
               >
                 Export Template
-              </button>
-              <button
-                id="btnExample"
-                type="button"
-                class="button-small"
-                style="margin-left: 50px"
-                onclick="btnExample_OnClick()"
-              >
-                Example
-              </button>
-              <button
-                id="btnClear"
-                type="button"
-                class="button-small"
-                style="margin-left: 5px"
-                onclick="btnClear_OnClick()"
-              >
-                Clear
               </button>
             </dt>
             <dt>
@@ -446,7 +452,7 @@
     </div>
   </body>
   <div id="footer" class="w-100 text-center">
-    How a wonderful day. String maker v3.0 by Alex. Email:
+    How a wonderful day. Text Generator v3.0 by Alex. Email:
     Alexlin1822@hotmail.com
   </div>
 </html>
