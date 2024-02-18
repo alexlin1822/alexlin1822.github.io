@@ -1,5 +1,5 @@
 /**
-  Author: Alex Lam
+	Author: Alex Lam
 	Application: Text Generator
 	Email: Alexlin1822@hotmail.com
 
@@ -7,7 +7,8 @@
 	V2.1 Updated at Mar 22, 2022
 	V2.2 Updated at Aug 15, 2023
   V2.3 Updated at Feb 2, 2024
-  V3.0 Updated at Feb 17, 2024
+  V3.0 Updated at Feb 10, 2024
+  V3.1 Updated at Feb 17, 2024
  */
 
 "use strict";
