@@ -1,6 +1,6 @@
-@use postcss-preset-env {
+/* @use postcss-preset-env {
   stage: 0;
-}
+} */
 
 :root {
   --color-background: #000351;
