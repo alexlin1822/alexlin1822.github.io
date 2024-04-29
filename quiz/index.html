@@ -36,9 +36,21 @@
         content: " (" attr(data-answer-index) ")";
         font-weight: bold;
       }
+      button {
+        background-color: #a9b9fc; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
     </style>
   </head>
-  <body style="margin: 5px; padding: 5px">
+  <body style="margin: 5px; padding: 5px; font-size: 20px">
     <h1>Quiz</h1>
 
     <div id="fontSizeBar">
@@ -47,7 +59,7 @@
       <span id="fontSizeValue">16</span>
     </div>
 
-    <div id="quiz"></div>
+    <div id="quiz" style="margin-bottom: 100px"></div>
     <div>
       <button id="previousButton">Previous</button>
       <button id="nextButton">Next</button>
