@@ -52,6 +52,20 @@ function renderQuiz(quizItems, currentIndex) {
   const { question, answers, correctAnswerIndex } = quizItems[currentIndex];
   const answerLabel = document.getElementById("answerLabel");
 
+  const fontSizeRange = document.getElementById("fontSizeRange");
+  const fontSizeValue = document.getElementById("fontSizeValue");
+  const content = document.getElementById("quiz");
+
+  // Set initial font size
+  content.style.fontSize = `${fontSizeRange.value}px`;
+  fontSizeValue.textContent = fontSizeRange.value;
+
+  // Update font size on range input change
+  fontSizeRange.addEventListener("input", () => {
+    content.style.fontSize = `${fontSizeRange.value}px`;
+    fontSizeValue.textContent = fontSizeRange.value;
+  });
+
   quizContainer.innerHTML = `<h5>${currentIndex + 1} -  ${question}</h5>`;
 
   answerLabel.innerHTML =
@@ -64,6 +78,7 @@ function renderQuiz(quizItems, currentIndex) {
     const answerItem = document.createElement("li");
     console.log("Answer: ", answer);
     answerItem.textContent = answer;
+    answerItem.style = "margin: 10px";
 
     answerItem.addEventListener("click", () => {
       const answerItems = answersList.getElementsByTagName("li");
