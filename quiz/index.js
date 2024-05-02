@@ -89,7 +89,9 @@ function renderQuiz(quizItem) {
   quizContainer.style.fontSize = `${fontSizeRange.value}px`;
   fontSizeValue.textContent = fontSizeRange.value;
 
-  quizContainer.innerHTML = `<h5>${getCurrentIndex() + 1} -  ${question}</h5>`;
+  quizContainer.innerHTML = `<br><label style="font-weight:bold">${
+    getCurrentIndex() + 1
+  } -  ${question}<label>`;
 
   answerLabel.innerHTML =
     "Answer:" + correctAnswerIndex.map((num) => " [" + (num + 1) + "] ");

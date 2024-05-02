@@ -36,14 +36,15 @@
       <label style="font-size: 30px; margin-right: 50px">Quiz</label>
       <label for="fontSizeRange"> Font Size:</label>
       <input
+        style="width: 50%"
         type="range"
         id="fontSizeRange"
-        min="12"
-        max="96"
-        value="16"
+        min="8"
+        max="64"
+        value="20"
         onchange="questionInput_onChange(this.value)"
       />
-      <span id="fontSizeValue">16</span>
+      <span id="fontSizeValue">20</span>
     </div>
 
     <div id="quiz" style="margin-bottom: 100px"></div>
