@@ -2,15 +2,15 @@
 async function fetchQuizContent() {
   // let response = await fetch("questions.txt");
 
-  let url =
-    "https://github.com/Ditectrev/AWS-Certified-Solutions-Architect-Associate-SAA-C03-Practice-Tests-Exams-Questions-Answers/blob/main/README.md";
-  const rawUrl = url.replace(/blob\/.+$/, "raw");
-  let response = await fetch(rawUrl);
+  let url = "README.md";
+  // const rawUrl = url.replace(/blob\/.+$/, "raw");
+  let response = await fetch(url);
   let data = await response.text();
-  console.log(data);
+
   const indexOfHash = data.indexOf("###");
 
-  data = str.substring(indexOfHash);
+  data = data.substring(indexOfHash);
+  console.log(data);
 
   let question_block = data
     .trim()
