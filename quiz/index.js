@@ -1,9 +1,20 @@
 // Function to fetch the quiz content from the text file
 async function fetchQuizContent() {
-  let response = await fetch("questions.txt");
-  let data = await response.text();
+  // let response = await fetch("questions.txt");
 
-  let question_block = data.trim().split("**[]**");
+  let url =
+    "https://github.com/Ditectrev/AWS-Certified-Solutions-Architect-Associate-SAA-C03-Practice-Tests-Exams-Questions-Answers/blob/main/README.md";
+  const rawUrl = url.replace(/blob\/.+$/, "raw");
+  let response = await fetch(rawUrl);
+  let data = await response.text();
+  console.log(data);
+  const indexOfHash = data.indexOf("###");
+
+  data = str.substring(indexOfHash);
+
+  let question_block = data
+    .trim()
+    .split("**[⬆ Back to Top](#table-of-contents)**");
   let parsedQuestions = [];
 
   for (let question_block_element of question_block) {
