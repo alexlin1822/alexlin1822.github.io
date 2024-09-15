@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+
+    <title>Quiz</title>
+    <style>
+      .correct {
+        background-color: rgb(171, 248, 171);
+      }
+      .incorrect {
+        background-color: rgb(251, 147, 147);
+      }
+      .showAnswer::after {
+        content: " (" attr(data-answer-index) ")";
+        font-weight: bold;
+      }
+      button {
+        background-color: #a9b9fc; /* Green */
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body style="margin: 5px; padding: 5px; font-size: 20px">
+    <div id="fontSizeBar">
+      <label style="font-size: 30px; margin-right: 50px">Quiz</label>
+      <label for="fontSizeRange"> Font Size:</label>
+      <input
+        style="width: 50%"
+        type="range"
+        id="fontSizeRange"
+        min="8"
+        max="64"
+        value="20"
+        onchange="questionInput_onChange(this.value)"
+      />
+      <span id="fontSizeValue">20</span>
+    </div>
+
+    <div id="quiz" style="margin-bottom: 100px"></div>
+    <div>
+      <button id="previousButton" onclick="previousButton_OnClick()">
+        Previous
+      </button>
+      <button id="nextButton" onclick="nextButton_OnClick()">Next</button>
+    </div>
+    <div>
+      <label for="questionInput">Go to Question:</label>
+      <input type="number" id="questionInput" min="0" value="0" />
+      <button id="goToQuestionButton" onclick="goToQuestionButton_OnClick()">
+        Go
+      </button>
+    </div>
+    <div>
+      <button id="showAnswerButton" onclick="showAnswerButton_OnClick()">
+        Show Answer
+      </button>
+      <button id="hideAnswerButton" onclick="hideAnswerButton_OnClick()">
+        Hide Answer
+      </button>
+    </div>
+    <div>
+      <label id="answerLabel" style="display: none"></label>
+    </div>
+  </body>
+</html>
