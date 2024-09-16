@@ -595,3 +595,11 @@
 - [ ] Create an Amazon Simple Queue Service (Amazon SQS) queue that is a target of the Lambda function. Subscribe the security team's group email address to the queue. 
 **[]**
 
+### A company wants to set up a continuous delivery pipeline. The company stores application code in a private GitHub repository. The company needs to deploy the application components to Amazon Elastic Container Service (Amazon ECS). Amazon EC2, and AWS Lambda. The pipeline must support manual approval actions. Which solution will meet these requirements?
+
+- [ ] Use AWS CodePipeline with Amazon ECS. Amazon EC2, and Lambda as deploy providers. 
+- [x] Use AWS CodePipeline with AWS CodeDeploy as the deploy provider. 
+- [ ] Use AWS CodePipeline with AWS Elastic Beanstalk as the deploy provider. 
+- [ ] Use AWS CodeDeploy with GitHub integration to deploy the application. 
+**[]**
+
