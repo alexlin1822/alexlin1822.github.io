@@ -34,6 +34,7 @@ async function fetchQuizContent() {
       correctAnswerIndex
     });
   }
+  parsedQuestions.pop();
 
   return parsedQuestions;
 }
@@ -123,4 +124,8 @@ function renderQuiz(quizItem) {
 fetchQuizContent().then((parsedQuestions) => {
   setQuizItems(parsedQuestions);
   renderQuiz(getQuizItem(0));
+  let questionNumber = document.getElementById("questionNumber");
+
+  questionNumber.textContent =
+    "Question: [1 - " + getQuizItemCount() + "] Go to   ";
 });
