@@ -1432,7 +1432,8 @@
 - [ ] Configure a higher reserved concurrency for the Lambda functions. 
 - [x] Configure a higher provisioned concurrency for the Lambda functions. 
 - [ ] Convert the DB cluster to an Aurora global database. Add additional Aurora Replicas in AWS Regions based on the locations of the company's customers. 
-- [x] Refactor the Lambda functions. Move the code blocks that initialize database connections into the function handlers. F. Use Amazon RDS Proxy to create a proxy for the Aurora database. Update the Lambda functions to use the proxy endpoints for database connections. 
+- [x] Refactor the Lambda functions. Move the code blocks that initialize database connections into the function handlers. 
+- [x] Use Amazon RDS Proxy to create a proxy for the Aurora database. Update the Lambda functions to use the proxy endpoints for database connections. 
 **[]**
 
 ### A company runs a web application that extends across multiple Availability Zones. The company uses an Application Load Balancer (ALB) for routing, AWS Fargate for the application, and Amazon Aurora for the application data. The company uses AWS CloudFormation templates to deploy the application. The company stores all Docker images in an Amazon Elastic Container Registry (Amazon ECR) repository in the same AWS account and AWS Region.A DevOps engineer needs to establish a disaster recovery (DR) process in another Region. The solution must meet an RPO of 8 hours and an RTO of 2 hours. The company sometimes needs more than 2 hours to build the Docker images from the Docker  le.Which solution will meet the RTO and RPO requirements MOST cost-effectively?
