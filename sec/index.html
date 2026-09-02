@@ -83,37 +83,6 @@
         <small class="text-muted" id="counter">加载中...</small>
       </div>
 
-      <div class="row align-items-center mt-4">
-        <!-- 拉动条 -->
-        <div class="col-8">
-          <input
-            type="range"
-            class="form-range"
-            id="mySlider"
-            min="1"
-            max="611"
-            value="1"
-          />
-        </div>
-
-        <!-- 输入框 -->
-        <div class="col-2">
-          <input
-            type="number"
-            id="inputValue"
-            class="form-control"
-            min="1"
-            max="611"
-            value="1"
-          />
-        </div>
-
-        <!-- 按钮 -->
-        <div class="col-2">
-          <button class="btn btn-primary w-100" id="btnSet">设定数值</button>
-        </div>
-      </div>
-
       <div class="d-flex gap-2 mt-4">
         <button class="btn btn-outline-primary nav-btn" id="prevBtn">
           ← 上一题
@@ -137,6 +106,43 @@
               正确答案: <span id="ansText"></span>
             </p>
             <p class="mb-0 text-secondary" id="expText"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card question-card p-0 my-2 mx-0">
+        <div class="card-body px-4 m-0">
+          <div class="row align-items-center mt-4">
+            <!-- 拉动条 -->
+            <div class="col-8">
+              <input
+                type="range"
+                class="form-range"
+                id="mySlider"
+                min="1"
+                max="611"
+                value="1"
+              />
+            </div>
+
+            <!-- 输入框 -->
+            <div class="col-2">
+              <input
+                type="number"
+                id="inputValue"
+                class="form-control"
+                min="1"
+                max="611"
+                value="1"
+              />
+            </div>
+
+            <!-- 按钮 -->
+            <div class="col-2">
+              <button class="btn btn-primary w-100" id="btnSet">
+                设定数值
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -6445,6 +6451,9 @@
         document.getElementById("prevBtn").disabled = currentIndex === 0;
         document.getElementById("nextBtn").disabled =
           currentIndex === questions.length - 1;
+
+        document.getElementById("mySlider").value = currentIndex + 1;
+        document.getElementById("inputValue").value = currentIndex + 1;
       }
 
       function toggleAnswer() {
